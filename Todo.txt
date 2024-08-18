@@ -1,0 +1,6 @@
+[] Build the basic ui with mock data
+[] Set up Prisma Schemas
+[] Set up Postgres db in vercel
+[] Fill the db with actual data
+[] Deploy
+[] Implement user auth with clerk
