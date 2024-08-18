@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { Search } from "~/components/search";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Create T3 App",
@@ -17,7 +18,7 @@ function Nav (){
     <nav className="w-full flex justify-between p-3">
       <div className="container">
         <div className="flex justify-between items-center">
-          <img src={logo} alt="img" className="max-h-[50px]"/>
+          {/* <Image src={logo} width={50} height={50} alt="img" className="max-h-[50px]"/> */}
           <Search/>
         </div>
       </div>
