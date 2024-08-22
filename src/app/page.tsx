@@ -7,10 +7,13 @@ export default async function HomePage () {
   const years = await db.folder.findMany({
     where:{
       parentId: null
+    },
+    orderBy:{
+      id: "asc"
     }
   })
 
-
+  console.log(years)
   return (
     <main className="container">
       {
