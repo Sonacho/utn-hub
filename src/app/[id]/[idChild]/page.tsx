@@ -13,7 +13,7 @@ const SubFolderComponent = async ({ params }: { params: { idChild: string } }) =
             {
                 childs?.map(c => {
                     return(
-                        <div>
+                        <div key={c.id}>
                             {c.name}
                         </div>
                     )

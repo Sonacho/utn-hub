@@ -14,7 +14,7 @@ const FolderComponent = async ({ params }: { params: { id: string } }) => {
             {
                 childs?.map(c => {
                     return(
-                    <Link href={`/${c.id}`}>
+                    <Link key={c.id} href={`/${c.id}`}>
                         <div>
                             {c.name}
                         </div>
