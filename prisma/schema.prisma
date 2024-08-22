@@ -9,68 +9,12 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
-model Year {
-  id        Int       @id @default(autoincrement())
-  name      String
-  subjects  Subject[]
-}
-
-model Subject {
-  id        Int       @id @default(autoincrement())
-  name      String
-  content   Content[]
-  yearId    Int
-  year      Year      @relation(fields: [yearId], references: [id])
-}
-
-model Content {
-  id           Int       @id @default(autoincrement())
-  subjectId    Int       @unique
-  tests        Test[]
-  materials    Material[]
-  resumes      Resume[]
-  subject      Subject   @relation(fields: [subjectId], references: [id])
-}
-
-model Test {
-  id           Int        @id @default(autoincrement())
-  type         TestType
-  pdfFiles     PdfFile[]
-  contentId    Int
-  content      Content    @relation(fields: [contentId], references: [id])
-}
-
-model Material {
-  id        Int        @id @default(autoincrement())
-  name      String
-  pdfFiles  PdfFile[]
-  contentId Int
-  content   Content    @relation(fields: [contentId], references: [id])
-}
-
-model Resume {
-  id        Int        @id @default(autoincrement())
-  name      String
-  pdfFiles  PdfFile[]
-  contentId Int
-  content   Content    @relation(fields: [contentId], references: [id])
-}
-
-model PdfFile {
-  id        Int    @id @default(autoincrement())
-  name      String
-  url       String
-  testId    Int?
-  materialId Int?
-  resumeId  Int?
-
-  test      Test?     @relation(fields: [testId], references: [id])
-  material  Material? @relation(fields: [materialId], references: [id])
-  resume    Resume?   @relation(fields: [resumeId], references: [id])
-}
-
-enum TestType {
-  PARCIAL
-  FINAL
-  GLOBALIZER
+model Folder {
+  id       Int      @id @default(autoincrement())
+  name     String
+  isFile   Boolean
+  filePath String?  // Nullable because folders won't have a file path
+  parentId Int?
+  parent   Folder?  @relation("FolderChildren", fields: [parentId], references: [id])
+  children Folder[] @relation("FolderChildren")
 }
