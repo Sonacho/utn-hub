@@ -1,10 +1,10 @@
 import { db } from "~/server/db";
 
-const SubFolderComponent = async ({ params }: { params: { id: string } }) => {
+const SubFolderComponent = async ({ params }: { params: { idChild: string } }) => {
 
     const childs = await db.folder.findMany({
         where:{
-            parentId:parseInt(params.id)
+            parentId:parseInt(params.idChild)
         }
     })
 
