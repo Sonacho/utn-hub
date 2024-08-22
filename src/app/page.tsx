@@ -16,7 +16,7 @@ export default async function HomePage () {
       {
         years.map(y => {
           return(
-            <Link href={`/${y.id}`}>
+            <Link key={y.id} href={`/${y.id}`}>
               <div>
                 {y.name}
               </div>
