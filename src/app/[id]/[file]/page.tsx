@@ -1,7 +1,6 @@
 "use client"
 
 import { useCallback, useState } from "react";
-import useDeviceSize from "~/utils/useDiviseSize";
 
 function getIframeSrc(id:string){
     const finalUrl = `https://drive.google.com/file/d/${id}/preview`

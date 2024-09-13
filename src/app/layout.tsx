@@ -3,7 +3,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { Search } from "~/components/search";
-import { ClerkProvider } from "@clerk/nextjs";
+
 /* import Image from "next/image";
  */
 export const metadata: Metadata = {
@@ -31,13 +31,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <Nav/>
         {children}
       </body>
     </html>
-    </ClerkProvider>
   );
 }
