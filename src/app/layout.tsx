@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { Search } from "~/components/search";
+import { ClerkProvider } from "@clerk/nextjs";
 /* import Image from "next/image";
  */
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
  */
 function Nav (){
   return(
-    <nav className="w-full flex justify-between p-3">
+    <nav className="w-full flex justify-between p-7 mb-5">
       <div className="container">
         <div className="flex justify-between items-center">
           {/* <Image src={logo} width={50} height={50} alt="img" className="max-h-[50px]"/> */}
@@ -30,11 +31,13 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
+    <ClerkProvider>
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <Nav/>
         {children}
       </body>
     </html>
+    </ClerkProvider>
   );
 }

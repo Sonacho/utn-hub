@@ -1,6 +1,5 @@
-import Link from "next/link";
+import { Card } from "~/components/card";
 import { db } from "~/server/db";
-import { getFileId } from "~/utils/getfileid";
 
 const FolderComponent = async ({ params }: { params: { id: string } }) => {
 
@@ -14,20 +13,12 @@ const FolderComponent = async ({ params }: { params: { id: string } }) => {
     })
 
     return ( 
-        <div>
+        <div className="container grid grid-cols-2 gap-4">
             {
-                childs?.map(c => {
+                childs?.map(c => 
+                {
                     return(
-                    c.isFile ?
-                    <Link key={c.id} href={`/${c.parentId}/${getFileId(c.filePath)}`}>
-                        {c.name.replace(/.txt/g, "")}
-                    </Link> 
-                    :
-                    <Link key={c.id} href={`/${c.id}`}>
-                        <div>
-                            {c.name}
-                        </div>
-                    </Link>
+                    <Card key={c.id} name={c.name} parentId={c.parentId} path={c.filePath} id={c.id} isFile={c.isFile}/>
                     )
                 })
             }
