@@ -3,13 +3,16 @@ function getIframeSrc(id:string){
     return finalUrl
 }
 
-export default function File ({ params }: { params: { file: string } }) {
-
-    return ( 
-        <div className="container h-full flex justify-center">
-            <div className="sm:h-full sm:w-full md:w-[400px] md:h-[500px] lg:w-[700px] lg:h-[800px] flex justify-center">
-                <iframe src={getIframeSrc(params.file)} className="w-full h-full" allowFullScreen />
+    export default function File({ params }: { params: { file: string } }) {
+        return (
+            <div className="container h-full flex justify-center items-center">
+                <div className="w-full h-full max-w-screen-lg p-4">
+                    <iframe 
+                        src={getIframeSrc(params.file)} 
+                        className="w-full h-[70vh] md:h-[80vh] lg:h-[90vh]" 
+                        allowFullScreen 
+                    />
+                </div>
             </div>
-        </div>
-    );
-}
+        );
+    }

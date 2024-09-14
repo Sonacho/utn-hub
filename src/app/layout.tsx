@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 import { Search } from "~/components/search";
+import ThemeToggle from "~/utils/toogleDarkMode";
 
 /* import Image from "next/image";
  */
@@ -21,6 +22,7 @@ function Nav (){
         <div className="flex justify-between items-center">
           {/* <Image src={logo} width={50} height={50} alt="img" className="max-h-[50px]"/> */}
           <Search/>
+          <ThemeToggle/>
         </div>
       </div>
     </nav>
