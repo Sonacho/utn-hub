@@ -19,7 +19,7 @@ function Nav (){
   return(
     <nav className="w-full flex justify-between p-7 mb-5">
       <div className="container">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-4">
           {/* <Image src={logo} width={50} height={50} alt="img" className="max-h-[50px]"/> */}
           <Search/>
           <ThemeToggle/>
