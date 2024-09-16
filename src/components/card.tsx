@@ -9,7 +9,7 @@ interface CardProps{
     parentId: number | null
 }
 
-export const Card:React.FC<CardProps>  = ({path, name, parentId, id , isFile}) => {
+/* export const Card:React.FC<CardProps>  = ({path, name, parentId, id , isFile}) => {
     return(
         isFile ?
         <Link href={`/${parentId}/${getFileId(path)}`}>
@@ -28,4 +28,27 @@ export const Card:React.FC<CardProps>  = ({path, name, parentId, id , isFile}) =
             </div>
         </Link>
     )
+}
+ */
+
+export const Card: React.FC<CardProps> = ({ path, name, parentId, id, isFile }) => {
+    return (
+        isFile ? (
+            <Link href={`/${parentId}/${getFileId(path)}`}>
+                <div className="border border-gray-300 p-4 rounded-lg shadow-md bg-white hover:bg-gray-100 transition duration-300 ease-in-out dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:shadow-gray-900">
+                    <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                        {name.replace(/.txt/g, "")}
+                    </p>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">PDF 📖</span>
+                </div>
+            </Link>
+        ) : (
+            <Link href={`${id}`}>
+                <div className="border border-gray-300 p-4 rounded-lg shadow-md bg-white hover:bg-gray-100 transition duration-300 ease-in-out dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:shadow-gray-900">
+                    <p className="text-lg font-semibold text-gray-800 dark:text-gray-200">{name}</p>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Folder</span>
+                </div>
+            </Link>
+        )
+    );
 }
