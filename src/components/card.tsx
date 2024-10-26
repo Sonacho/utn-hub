@@ -75,6 +75,7 @@ export const Card: React.FC<CardProps> = ({
                     <span className="text-sm text-gray-600 dark:text-gray-400">Folder</span>
                 </div>
             </Link> */
+            
     <Link href={`${id}`}>
       <div className="relative w-full rounded-lg border border-gray-300 bg-yellow-200 p-4 shadow-md transition duration-300 ease-in-out hover:bg-yellow-300 dark:border-gray-700 dark:bg-gray-700 dark:shadow-gray-900 dark:hover:bg-gray-600">
         {/* Folder Tab */}
