@@ -27,7 +27,7 @@ const ThemeToggle = () => {
 
 	return (
 		<div>
-			<Button /* className='dark:border-slate-950 dark:bg-slate-900 dark:shadow-slate-950 bg-white hover:scale-105 p-3' */ onClick={() => setDarkTheme(!darkTheme)}>{darkTheme ? <SunIcon/> : <MoonIcon/>}</Button>
+			<Button onClick={() => setDarkTheme(!darkTheme)}>{darkTheme ? <SunIcon/> : <MoonIcon/>}</Button>
 		</div>
 	);
 };

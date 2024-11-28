@@ -26,9 +26,12 @@ function Nav (){
   )
 }
 
+
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body className="h-screen">
