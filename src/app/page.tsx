@@ -50,11 +50,12 @@ export default async function HomePage () {
     <main className="container flex justify-center">
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
       {
-        years.map(y => {
+        years.map((y,i) => {
+          const isLastChild = i === years.length - 1;
           return (
             <Link key={y.id} href={`/${y.name}`}>
-              <div className={`relative group h-64 w-full ${changeColour(y.name)} rounded-lg overflow-hidden shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl dark:shadow-gray-900 dark:bg-opacity-60`}>
-                <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 bg-opacity-50 group-hover:bg-opacity-70 dark:bg-opacity-60 dark:group-hover:bg-opacity-80">
+              <div className={`${isLastChild ? "lg:!col-span-3 md:!col-span-2" : ""} relative group h-64 w-full ${changeColour(y.name)} rounded-lg overflow-hidden shadow-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl dark:shadow-gray-900 dark:bg-opacity-60`}>
+                <div className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 bg-opacity-50 group-hover:bg-opacity-70 dark:bg-opacity-60 dark:group-hover:bg-opacity-80`}>
                   <h2 className="text-white text-xl font-bold">{y.name}</h2>
                 </div>
               </div>
