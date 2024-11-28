@@ -2,6 +2,7 @@ import { Card } from "~/components/card";
 import { db } from "~/server/db";
 import { getFileId } from "~/utils/getfileid";
 import type { Metadata} from 'next'
+import { notFound } from "next/navigation";
 
 
 type Props = {
@@ -44,7 +45,7 @@ const FolderComponent = async ({ params }: { params: Promise<{ id: string[] }> }
         include: { children: true }, 
     })
     if (!folder) {
-        return <h1>Not Found</h1>;
+        return notFound()
     }
 
     return folder.isFile ? ( 
