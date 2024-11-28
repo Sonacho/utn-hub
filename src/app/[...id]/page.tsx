@@ -1,7 +1,7 @@
 import { Card } from "~/components/card";
 import { db } from "~/server/db";
 import { getFileId } from "~/utils/getfileid";
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata} from 'next'
 
 
 type Props = {
