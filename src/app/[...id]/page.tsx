@@ -10,7 +10,6 @@ type Props = {
 
 export async function generateMetadata(
     { params }: Props,
-    parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
     const id = (await params).id
@@ -36,27 +35,31 @@ function getIframeSrc(id:string | null | undefined){
 
 const FolderComponent = async ({ params }: { params: Promise<{ id: string[] }> }) => {
 
-/*     const childs = await db.folder.findMany({
-        where:{
-            parentId:parseInt(params.id)
-        },
-        orderBy:{
-            isFile:"asc"
-        }
-    }) */
     const { id } = await params;
-    // Reconstruct folder path
+
     const folderPath = id.join("/");
-    // Fetch folder data
+
     const folder = await db.folder.findFirst({
-        where: { name: decodeURI(id[id.length - 1]!) }, // Last segment is the folder's name
-        include: { children: true }, // Include child folders/files
+        where: { name: decodeURI(id[id.length - 1]!) }, 
+        include: { children: true }, 
     })
     if (!folder) {
         return <h1>Not Found</h1>;
     }
 
-    return ( 
+    return folder.isFile ? ( 
+        folder.filePath && 
+        <div className="container h-full flex justify-center items-center">
+            <div className="w-full h-full max-w-screen-lg p-4">
+                <iframe 
+                    src={getIframeSrc(getFileId(folder.filePath))} 
+                    className="w-full h-[70vh] md:h-[80vh] lg:h-[90vh]" 
+                    allowFullScreen 
+                />
+            </div>
+        </div>)
+        :
+        (
             <div className="container grid grid-cols-2 gap-4">
                 {
                     folder.children?.sort(e => e.isFile ? 1 : -1).map(c =>   
@@ -66,20 +69,8 @@ const FolderComponent = async ({ params }: { params: Promise<{ id: string[] }> }
                         )
                     })
                 }
-                {
-                    folder.isFile && folder.filePath && 
-                    <div className="container h-full flex justify-center items-center">
-                        <div className="w-full h-full max-w-screen-lg p-4">
-                            <iframe 
-                                src={getIframeSrc(getFileId(folder.filePath))} 
-                                className="w-full h-[70vh] md:h-[80vh] lg:h-[90vh]" 
-                                allowFullScreen 
-                            />
-                        </div>
-                    </div>
-                }
             </div>
-    );
+        )
 }
 
 export default FolderComponent
