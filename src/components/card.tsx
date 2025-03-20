@@ -4,9 +4,7 @@ type FileTypeStyle = {
   bgColor: string; // Background color class (e.g., "bg-red-500")
 };
 
-type FileTypeStyles = {
-  [key: string]: FileTypeStyle; // Dynamic keys for file types (e.g., "pdf", "txt")
-};
+type FileTypeStyles = Record<string, FileTypeStyle>; // Use Record instead of an index signature
 
 
 interface CardProps {
@@ -63,7 +61,7 @@ export const Card: React.FC<CardProps> = ({
     {fileType && (
       <div
         className={`absolute right-0 top-0 mr-1 mt-1 rounded px-2 py-0.5 text-xs font-bold text-white ${
-          fileTypeStyles[fileType]?.bgColor || "bg-gray-500"
+          fileTypeStyles[fileType]?.bgColor ? "" : "bg-gray-500"
         }`}
       >
         {fileType.toUpperCase()}
