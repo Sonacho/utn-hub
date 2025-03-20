@@ -7,7 +7,7 @@ export default async function FoldersLayout({
     params
 }: {
     children: React.ReactNode,
-    params: { id: string[] }
+    params: { id: Promise<string[]> }
 }) {
     return (
         <>

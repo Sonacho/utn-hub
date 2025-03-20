@@ -10,10 +10,11 @@ import {
 import getFolderPath from "~/utils/getFolderPath"
 
 
-export default async function BreadcrumbComponent({id}:{id:string[]}){
+export default async function BreadcrumbComponent({id}:{id:Promise<string[]>}){
 
-    
-    const links = await getFolderPath(id[id.length-1]!)
+
+    const idArray = await id;
+    const links = await getFolderPath(idArray[idArray.length-1]!)
     links.shift()
     const subLinks = links.map((e) => {
         return {name:decodeURI(e.split("+")[0]!), path:e.split("+")[1]}
