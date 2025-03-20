@@ -2,12 +2,12 @@ import Link from "next/link";
 import { db } from "~/server/db";
 import { changeColour } from "~/utils/changeColour";
 
-
+/* 
 type ReducedFolder = {
   id:number,
   name:string,
   parentFolder: { id:number } | null
-}
+} */
 
 /* export async function generateStaticParams() {
   const folders = await db.folder.findMany({ // Only folders

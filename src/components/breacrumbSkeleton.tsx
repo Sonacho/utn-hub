@@ -6,7 +6,7 @@ export default function BreadcrumbSkeleton() {
       <BreadcrumbList>
         {Array.from(Array(5)).map((e,i) => {
           return(
-          <BreadcrumbItem>
+          <BreadcrumbItem key={i}>
             <div className="h-4 w-16 bg-gray-300 dark:bg-slate-700 rounded animate-pulse"></div>
             {i != 4 && <BreadcrumbSeparator/>}
           </BreadcrumbItem>

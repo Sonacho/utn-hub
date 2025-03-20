@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { useMemo } from "react";
+
+type FileTypeStyle = {
+  bgColor: string; // Background color class (e.g., "bg-red-500")
+};
+
+type FileTypeStyles = {
+  [key: string]: FileTypeStyle; // Dynamic keys for file types (e.g., "pdf", "txt")
+};
+
 
 interface CardProps {
   type: string;
@@ -9,7 +17,7 @@ interface CardProps {
   s3key?: string;
   fileType?: string;
 }
-const fileTypeStyles:any = {
+const fileTypeStyles:FileTypeStyles = {
   pdf: {
     bgColor: "bg-red-500", // Red for PDF
   },
