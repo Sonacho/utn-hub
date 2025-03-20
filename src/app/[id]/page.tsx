@@ -25,9 +25,9 @@ export async function generateMetadata(
 }
  */
 
-const FolderComponent = async ({ params }: { params: { id: string[]  }}) => {
+const FolderComponent = async ({ params }: { params: { id: string}}) => {
   
-    const folderId = params.id[params.id.length-1]!
+    const folderId = params.id
     const folder = await db.folder.findUnique({
       where:{id: folderId},
       include:{
