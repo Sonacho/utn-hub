@@ -48,3 +48,5 @@ yarn-error.log*
 # LOCAL FILES
 populate.js
 /scraped
+credentials.json
+seed.ts

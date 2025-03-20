@@ -1,20 +1,35 @@
-
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
 }
 
 model Folder {
-  id       Int      @id @default(autoincrement())
-  name     String
-  isFile   Boolean
-  filePath String?  // Nullable because folders won't have a file path
-  parentId Int?
-  parent   Folder?  @relation("FolderChildren", fields: [parentId], references: [id])
-  children Folder[] @relation("FolderChildren")
+  id              String      @id @default(uuid()) // Unique ID for the folder
+  name            String   // Name of the folder (e.g., "Contracts")
+  parentFolderId  String?     @map("parent_folder_id") // ID of the parent folder (for nested folders)
+  parentFolder    Folder?  @relation("FolderToFolder", fields: [parentFolderId], references: [id]) // Self-referential relationship
+  childFolders    Folder[] @relation("FolderToFolder") // Child folders
+  files           File[]   // Files in this folder
+
+  @@index([parentFolderId])
+  @@map("folders") // Optional: Map to a custom table name
 }
+
+model File {
+  id              String      @id @default(uuid()) // Unique ID for the file
+  name            String   // Name of the file (e.g., "contract1.pdf")
+  s3Key           String   @map("s3_key") // S3 object key (e.g., "contracts/contract1.pdf")
+  folderId        String?     @map("folder_id") // ID of the folder this file belongs to
+  folder          Folder?  @relation(fields: [folderId], references: [id]) // Relationship to the folder
+  fileType        String   @map("file_type") // File type (e.g., "pdf", "docx")
+  size            Int      // File size in bytes
+  uploadDate      DateTime @map("upload_date") // Date the file was uploaded
+  tags            Json?    // Optional: Store tags as JSON (e.g., {"category": "contracts", "status": "pending"})
+
+  @@index([folderId])
+  @@map("files") // Optional: Map to a custom table name
+} 

@@ -1,5 +1,4 @@
-"use client"
-import { usePathname } from "next/navigation"
+
 import React from "react"
 import {
     Breadcrumb,
@@ -8,15 +7,16 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb"
+import getFolderPath from "~/utils/getFolderPath"
 
 
-export default function BreadcrumbComponent(){
+export default async function BreadcrumbComponent({id}:{id:string[]}){
 
     
-    const links = usePathname().split("/")
+    const links = await getFolderPath(id[id.length-1]!)
     links.shift()
-    const subLinks = links.map((e,i) => {
-        return {name:decodeURI(e), path:links.slice(0,i+1).join("/")}
+    const subLinks = links.map((e) => {
+        return {name:decodeURI(e.split("+")[0]!), path:e.split("+")[1]}
     })
     return links &&  (
         <Breadcrumb className="container pb-4">
@@ -26,7 +26,7 @@ export default function BreadcrumbComponent(){
             </BreadcrumbItem>
             {subLinks.map((e,i) => {
                 return(
-                    <React  .Fragment key={i}>
+                    <React.Fragment key={i}>
                     <BreadcrumbSeparator/>
                     <BreadcrumbItem>
                         <BreadcrumbLink href={`/${e.path}`}>{e.name}</BreadcrumbLink>
