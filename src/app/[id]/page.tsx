@@ -1,30 +1,7 @@
 import { Card } from "~/components/card";
 import { db } from "~/server/db";
 import NotFound from "./not-found";
-
-/* 
-type Props = {
-    params: Promise<{ id: string[] }>
-}
-
-export async function generateMetadata(
-    { params }: Props,
-): Promise<Metadata> {
-  // read route params
-    const id = (await params).id
-
-  // fetch data
-    const folder = await db.folder.findFirst({
-    where: { name: decodeURI(id[id.length - 1]!) }})
-  // optionally access and extend (rather than replace) parent metadata
-
-
-    return {
-        title: folder ? `Utn-hub || ${folder.name}` : "Utn-Hub"
-    }
-}
- */
-
+import FileComponent from "~/components/fileComponent";
 const FolderComponent = async ({params}:{params: Promise<{ id: string }>}) => {
   
     const folderId = (await params).id
@@ -40,23 +17,26 @@ const FolderComponent = async ({params}:{params: Promise<{ id: string }>}) => {
         where:{id: folderId}
       })
       if(file){
-      return (
-        <div className="container h-full flex justify-center items-center">
-            <div className="w-full h-full max-w-screen-lg p-4">
-                <iframe 
-                    src={`https://utn-hub-bucket.s3.us-east-1.amazonaws.com/${file?.s3Key}`} 
-                    className="w-full h-[70vh] md:h-[80vh] lg:h-[90vh]" 
-                    allowFullScreen 
-                />
-            </div>
-        </div>
-      )}
+        const doc = 
+          {
+            uri: `https://utn-hub-bucket.s3.us-east-1.amazonaws.com/${file?.s3Key}`,
+            fileType: file?.fileType,
+            name: file?.name
+          }
+        
+        return (
+          <div className="container h-full flex justify-center items-center">
+              <div className="w-full h-full max-w-screen-lg p-4">
+                 <FileComponent doc={doc}/>
+              </div>
+          </div>
+        )}
       if(!file){
         return <NotFound/>
       }
     }
     return (
-        <div className="container">
+        <div className="container h-full flex-grow">
             
             <div className="grid grid-cols-2 gap-4">
             {folder?.childFolders.map((subfolder) => (

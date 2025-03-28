@@ -2,6 +2,7 @@ import Link from "next/link";
 
 type FileTypeStyle = {
   bgColor: string; // Background color class (e.g., "bg-red-500")
+  secondaryBgColor: string; // Secondary background color class (e.g., "bg-red-400")
 };
 
 type FileTypeStyles = Record<string, FileTypeStyle>; // Use Record instead of an index signature
@@ -11,36 +12,42 @@ interface CardProps {
   type: string;
   id: string;
   name: string;
-  /* parentId: number | null; */
   s3key?: string;
   fileType?: string;
 }
 const fileTypeStyles:FileTypeStyles = {
   pdf: {
-    bgColor: "bg-red-500", // Red for PDF
+    bgColor: "bg-red-500",
+    secondaryBgColor: "bg-red-400"
   },
   txt: {
-    bgColor: "bg-blue-600", // Blue for TXT
+    bgColor: "bg-blue-600",
+    secondaryBgColor: "bg-blue-400"
   },
   docx: {
-    bgColor: "bg-blue-400", // Light blue for DOCX
+    bgColor: "bg-blue-400",
+    secondaryBgColor: "bg-blue-200"
   },
   xlsx: {
-    bgColor: "bg-green-500", // Green for XLSX
+    bgColor: "bg-green-500",
+    secondaryBgColor: "bg-green-400" 
   },
   jpg: {
-    bgColor: "bg-yellow-500", // Yellow for JPG
+    bgColor: "bg-yellow-500",
+    secondaryBgColor: "bg-yellow-400"
   },
   png: {
-    bgColor: "bg-yellow-400", // Light yellow for PNG
+    bgColor: "bg-yellow-400",
+    secondaryBgColor: "bg-yellow-400"
   },
   mp4: {
-    bgColor: "bg-purple-500", // Purple for MP4
+    bgColor: "bg-purple-500",
+    secondaryBgColor: "bg-purple-400" 
   },
   zip: {
-    bgColor: "bg-gray-500", // Gray for ZIP
+    bgColor: "bg-gray-500",
+    secondaryBgColor: "bg-gray-400" 
   },
-  // Add more file types as needed
 };
 export const Card: React.FC<CardProps> = ({
   name,
@@ -53,7 +60,9 @@ export const Card: React.FC<CardProps> = ({
   return type == "File" ? (
 
 <Link href={`/${id}`}>
-  <div className="relative rounded-lg border border-gray-300 bg-red-100 p-4 shadow-md transition duration-300 ease-in-out hover:bg-red-200 dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-900 dark:hover:bg-gray-700">
+  <div className={`relative rounded-lg border border-gray-300 ${
+          fileType && fileTypeStyles[fileType]?.secondaryBgColor || "bg-gray-500"
+        } p-4 shadow-md transition duration-300 ease-in-out hover:opacity-80 dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-900 dark:hover:bg-gray-700`}>
     {/* Folded Corner Effect */}
     {/* Add your folded corner effect here if needed */}
 
@@ -61,7 +70,7 @@ export const Card: React.FC<CardProps> = ({
     {fileType && (
       <div
         className={`absolute right-0 top-0 mr-1 mt-1 rounded px-2 py-0.5 text-xs font-bold text-white ${
-          fileTypeStyles[fileType]?.bgColor ? "" : "bg-gray-500"
+          fileTypeStyles[fileType]?.bgColor || "bg-gray-500"
         }`}
       >
         {fileType.toUpperCase()}

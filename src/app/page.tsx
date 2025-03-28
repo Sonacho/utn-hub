@@ -2,37 +2,6 @@ import Link from "next/link";
 import { db } from "~/server/db";
 import { changeColour } from "~/utils/changeColour";
 
-/* 
-type ReducedFolder = {
-  id:number,
-  name:string,
-  parentFolder: { id:number } | null
-} */
-
-/* export async function generateStaticParams() {
-  const folders = await db.folder.findMany({ // Only folders
-      select: { id: true, name: true, parentFolder: true },
-  });
-
-  // Helper to build nested paths
-  const buildPaths = (folder:ReducedFolder, allFolders:Array<ReducedFolder>, currentPath:Array<string> = []):Array<{slug:string[]}> => {
-      const path = [...currentPath, folder.name];
-      const childFolders = allFolders.filter(f => f.parentFolder?.id === folder.id);
-      if (childFolders.length === 0) {
-          return [{ slug: path }];
-      }
-      return childFolders.flatMap(child => buildPaths(child, allFolders, path));
-  };
-
-  const topLevelFolders = folders.filter(folder => !folder.parentFolder?.id);
-
-  const paths = topLevelFolders.flatMap(folder =>
-      buildPaths(folder, folders)
-  );  
-  return paths;
-} */
-
-
 
 export default async function HomePage () {
 
