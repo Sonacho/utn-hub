@@ -61,7 +61,7 @@ export const Card: React.FC<CardProps> = ({
 
 <Link href={`/${id}`}>
   <div className={`relative rounded-lg border border-gray-300 ${
-          fileType && fileTypeStyles[fileType]?.secondaryBgColor || "bg-gray-500"
+          fileType && (fileTypeStyles[fileType]?.secondaryBgColor ?? "bg-gray-500")
         } p-4 shadow-md transition duration-300 ease-in-out hover:opacity-80 dark:border-gray-700 dark:bg-gray-800 dark:shadow-gray-900 dark:hover:bg-gray-700`}>
     {/* Folded Corner Effect */}
     {/* Add your folded corner effect here if needed */}
@@ -70,7 +70,7 @@ export const Card: React.FC<CardProps> = ({
     {fileType && (
       <div
         className={`absolute right-0 top-0 mr-1 mt-1 rounded px-2 py-0.5 text-xs font-bold text-white ${
-          fileTypeStyles[fileType]?.bgColor || "bg-gray-500"
+          fileTypeStyles[fileType]?.bgColor ?? "bg-gray-500"
         }`}
       >
         {fileType.toUpperCase()}
