@@ -2,13 +2,12 @@ import { Suspense } from "react";
 import BreadcrumbSkeleton from "~/components/breacrumbSkeleton";
 import BreadcrumbComponent from "~/components/breadcrumbComponent";
 
-export default function FoldersLayout({
-    children,
-    params,
-}: {
+
+interface LayoutProps {
     children: React.ReactNode;
-    params: { id: string };
-}) {
+    params: {id:string}
+}
+export default function FoldersLayout({children, params}:LayoutProps) {
     return (
         <>
             <Suspense fallback={<BreadcrumbSkeleton />}>
