@@ -2,19 +2,19 @@ import { Suspense } from "react";
 import BreadcrumbSkeleton from "~/components/breacrumbSkeleton";
 import BreadcrumbComponent from "~/components/breadcrumbComponent";
 
-export default async function FoldersLayout({
+export default function FoldersLayout({
     children,
-    params
+    params,
 }: {
-    children: React.ReactNode,
-    params: Promise<{id:string}>
+    children: React.ReactNode;
+    params: { id: string };
 }) {
     return (
         <>
-        <Suspense fallback={<BreadcrumbSkeleton/>}>
-          <BreadcrumbComponent id={(await (params)).id} />
-        </Suspense>
+            <Suspense fallback={<BreadcrumbSkeleton />}>
+                <BreadcrumbComponent id={params.id} />
+            </Suspense>
             {children}
         </>
-    )
+    );
 }
