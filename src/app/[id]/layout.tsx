@@ -7,12 +7,12 @@ export default async function FoldersLayout({
     params
 }: {
     children: React.ReactNode,
-    params: {id:string}
+    params: Promise<{id:string}>
 }) {
     return (
         <>
         <Suspense fallback={<BreadcrumbSkeleton/>}>
-          <BreadcrumbComponent id={params.id} />
+          <BreadcrumbComponent id={(await (params)).id} />
         </Suspense>
             {children}
         </>
