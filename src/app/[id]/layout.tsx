@@ -5,13 +5,13 @@ import BreadcrumbComponent from "~/components/breadcrumbComponent";
 
 interface LayoutProps {
     children: React.ReactNode;
-    params: {id:string}
+    params: Promise<{id:string}>
 }
-export default function FoldersLayout({children, params}:LayoutProps) {
+export default async function FoldersLayout({children, params}:LayoutProps) {
     return (
         <>
             <Suspense fallback={<BreadcrumbSkeleton />}>
-                <BreadcrumbComponent id={params.id} />
+                <BreadcrumbComponent id={(await (params)).id} />
             </Suspense>
             {children}
         </>
