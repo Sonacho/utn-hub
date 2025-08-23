@@ -21,11 +21,10 @@ async function getFolderPath(folderId: string | null): Promise<string[]> {
         });
 
         if (folder) {
-            path.unshift(`${folder.name}+${folder.id}`); // Add to the beginning of the array
-            currentFolderId = folder.parentFolderId; // Move to the parent folder
-
+            path.unshift(`${folder.name}+${folder.id}`); 
+            currentFolderId = folder.parentFolderId; 
         } else {
-            break; // Stop if the folder is not found
+            break; 
         }
     }
 
