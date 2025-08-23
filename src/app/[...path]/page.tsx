@@ -17,7 +17,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: folder?.name || "File",
+    title: folder?.name ?? "File",
   };
 }
 

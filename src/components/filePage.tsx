@@ -1,7 +1,6 @@
 import { auth } from "~/lib/auth";
 import { CommentSection } from "./commentSection";
 import { getViewer } from "./viewers";
-import Link from "next/link";
 import { Button } from "./ui/button";
 
 interface fileComponentProps {

@@ -5,7 +5,7 @@ import { db } from "~/server/db";
 export async function POST(req: NextRequest) {
   const session = await auth();
 
-  if (!session?.user) {
+  if (!session || !session.user || !session.user.email) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
@@ -13,13 +13,14 @@ export async function POST(req: NextRequest) {
 
   const user = await db.user.findUnique({
     where: {
-      email: session.user.email!,
+      email: session.user.email,
     },
   });
+  if (!user) return new NextResponse("Unauthorized", { status: 401 });
 
   const newComment = {
     parentId: parentId || null,
-    authorId: user?.id!,
+    authorId: user.id,
     fileId,
     content,
   };
