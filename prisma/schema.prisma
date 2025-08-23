@@ -4,32 +4,82 @@ generator client {
 
 datasource db {
   provider = "cockroachdb"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_TESTING_V2")
 }
 
 model Folder {
-  id              String      @id @default(uuid()) // Unique ID for the folder
-  name            String   // Name of the folder (e.g., "Contracts")
-  parentFolderId  String?     @map("parent_folder_id") // ID of the parent folder (for nested folders)
-  parentFolder    Folder?  @relation("FolderToFolder", fields: [parentFolderId], references: [id]) // Self-referential relationship
-  childFolders    Folder[] @relation("FolderToFolder") // Child folders
-  files           File[]   // Files in this folder
-
+  id             String   @id @default(uuid())
+  name           String
+  path           String[]
+  stringPath     String   @unique
+  parentFolderId String?  @map("parent_folder_id")
+  files          File[]
+  parentFolder   Folder?  @relation("FolderToFolder", fields: [parentFolderId], references: [id])
+  childFolders   Folder[] @relation("FolderToFolder")
   @@index([parentFolderId])
-  @@map("folders") // Optional: Map to a custom table name
+  @@map("folders")
 }
 
 model File {
-  id              String      @id @default(uuid()) // Unique ID for the file
-  name            String   // Name of the file (e.g., "contract1.pdf")
-  s3Key           String   @map("s3_key") // S3 object key (e.g., "contracts/contract1.pdf")
-  folderId        String?     @map("folder_id") // ID of the folder this file belongs to
-  folder          Folder?  @relation(fields: [folderId], references: [id]) // Relationship to the folder
-  fileType        String   @map("file_type") // File type (e.g., "pdf", "docx")
-  size            Int      // File size in bytes
-  uploadDate      DateTime @map("upload_date") // Date the file was uploaded
-  tags            Json?    // Optional: Store tags as JSON (e.g., {"category": "contracts", "status": "pending"})
+  id         String    @id @default(uuid())
+  name       String
+  s3Key      String    @map("s3_key")@unique
+  folderId   String?   @map("folder_id")
+  fileType   String    @map("file_type")
+  size       Int
+  uploadDate DateTime  @map("upload_date")
+  tags       Json?
+  comments   Comment[]
+  folder     Folder?   @relation(fields: [folderId], references: [id])
 
   @@index([folderId])
-  @@map("files") // Optional: Map to a custom table name
-} 
+  @@map("files")
+}
+
+model Comment {
+  id          String       @id @default(cuid())
+  content     String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  authorId    String
+  isDeleted   Boolean      @default(false)
+  parentId    String?
+  fileId      String
+  attachments Attachment[]
+  author      User         @relation(fields: [authorId], references: [id])
+  file        File         @relation(fields: [fileId], references: [id])
+  parent      Comment?     @relation("CommentReplies", fields: [parentId], references: [id] )
+  replies     Comment[]    @relation("CommentReplies")
+  likedBy     CommentLike[]
+}
+
+model CommentLike {
+  id        String   @id @default(cuid())
+  userId    String
+  commentId String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, commentId]) // no duplicate likes
+}
+
+model User {
+  id       String        @id @default(cuid())
+  name     String
+  email    String        @unique
+  avatar   String
+  karma    Int?
+  comments Comment[]
+  likes    CommentLike[]
+}
+
+
+model Attachment {
+  id        String  @id @default(cuid())
+  url       String
+  type      String
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
