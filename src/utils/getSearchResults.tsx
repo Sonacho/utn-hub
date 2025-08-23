@@ -9,6 +9,8 @@ export async function getSeachResults(
   if (!res.ok) {
     throw new Error("Failed to fetch search results");
   }
-  const jsonRes = await res.json();
-  return jsonRes;
+  const returnPromise: Promise<
+    { stringPath: string; name: string; parentFolder: { name: string } }[]
+  > = res.json();
+  return returnPromise;
 }

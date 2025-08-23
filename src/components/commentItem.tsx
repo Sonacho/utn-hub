@@ -114,7 +114,7 @@ const CommentItem = ({
     try {
       const res = await fetch(`/api/comments?fileId=${fileId}&parentId=${id}`);
       if (res.ok) {
-        const data = await res.json();
+        const data: RepliesResponse = await res.json();
         setReplies(data);
         setShowReplies(true);
       }

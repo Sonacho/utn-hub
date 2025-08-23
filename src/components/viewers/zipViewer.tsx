@@ -15,7 +15,7 @@ export default function ZipViewer({ uri }: { uri: string }) {
   const [contents, setContents] = useState<Entry>([]);
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       const res = await fetch(uri);
       const buffer = await res.arrayBuffer();
       const zip = await JSZip.loadAsync(buffer);

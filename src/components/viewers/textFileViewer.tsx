@@ -12,7 +12,7 @@ const TextFileViewer = ({ uri, name }: TextFileViewerProps) => {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    (async () => {
+    void (async () => {
       try {
         const response = await fetch(uri);
         const text = await response.text();

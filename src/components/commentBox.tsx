@@ -26,16 +26,6 @@ export default function CommentBox({
   showReplies,
   session,
 }: CommentBox) {
-  if (!session) {
-    return (
-      <div className={`${parentId ? "flex items-end" : ""}`}>
-        <p className="flex items-center justify-center gap-2 text-xl font-bold">
-          Tienes que iniciar sesión para comentar <Frown />
-        </p>
-      </div>
-    );
-  }
-
   const [comment, setComment] = useState<Comment>({
     content: "",
     fileId: fileId,
@@ -89,6 +79,15 @@ export default function CommentBox({
     }
   }, [comment]);
 
+  if (!session) {
+    return (
+      <div className={`${parentId ? "flex items-end" : ""}`}>
+        <p className="flex items-center justify-center gap-2 text-xl font-bold">
+          Tienes que iniciar sesión para comentar <Frown />
+        </p>
+      </div>
+    );
+  }
   return (
     <Card className="w-full rounded-2xl border">
       <CardContent className="p-4">

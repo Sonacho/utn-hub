@@ -18,7 +18,7 @@ export const Search = () => {
   useEffect(() => {
     let cancelled = false;
 
-    (async () => {
+    void (async () => {
       if (!debouncedQuery) {
         setFolders([]);
         setOpen(false);
