@@ -11,6 +11,7 @@ import UserAvatar from "~/components/ui/user_avatar";
 import { auth } from "~/lib/auth";
 import SignIn from "~/components/sign_in";
 import Footer from "~/components/footer";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Utn-Hub - Recopilación de material de ISI",
@@ -73,9 +74,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         >
           <Nav />
           {children}
+
           <div className="container w-full"></div>
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
