@@ -63,4 +63,4 @@ export const viewers: Record<
 };
 
 export const getViewer = (fileType: string) =>
-  viewers[fileType.toLowerCase()] || UnsupportedViewer;
+  viewers[fileType.toLowerCase()] ?? UnsupportedViewer;

@@ -9,6 +9,6 @@ export async function getSeachResults(
   if (!res.ok) {
     throw new Error("Failed to fetch search results");
   }
-
-  return res.json();
+  const jsonRes = await res.json();
+  return jsonRes;
 }

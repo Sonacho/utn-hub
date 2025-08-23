@@ -1,8 +1,9 @@
-import NextAuth from "next-auth"
-import Google from "next-auth/providers/google"
-import { db } from "~/server/db"
-import { uploadAvatar } from "./userAvatar"
-export const { handlers, signIn, signOut, auth} = NextAuth({providers: [Google],
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+import { db } from "~/server/db";
+import { uploadAvatar } from "./userAvatar";
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [Google],
 
   callbacks: {
     async signIn({ user }) {
@@ -13,20 +14,18 @@ export const { handlers, signIn, signOut, auth} = NextAuth({providers: [Google],
       });
 
       if (!existingUser) {
-
         existingUser = await db.user.create({
           data: {
-            name: user.name!,
-            email: user.email!,
-            avatar: "", 
+            name: user.name ?? "Unknown",
+            email: user.email,
+            avatar: "",
           },
         });
 
-     
         if (user?.image) {
           try {
             const s3Url = await uploadAvatar(existingUser.id, user.image);
-            
+
             await db.user.update({
               where: { id: existingUser.id },
               data: { avatar: s3Url },
@@ -53,4 +52,4 @@ export const { handlers, signIn, signOut, auth} = NextAuth({providers: [Google],
       return session;
     },
   },
-})
+});

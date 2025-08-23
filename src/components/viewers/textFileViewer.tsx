@@ -12,7 +12,7 @@ const TextFileViewer = ({ uri, name }: TextFileViewerProps) => {
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    const fetchTextContent = async () => {
+    (async () => {
       try {
         const response = await fetch(uri);
         const text = await response.text();
@@ -22,9 +22,7 @@ const TextFileViewer = ({ uri, name }: TextFileViewerProps) => {
       } finally {
         setLoading(false);
       }
-    };
-
-    fetchTextContent();
+    })();
   }, [uri]);
 
   if (loading) return <div className="p-4">Loading...</div>;

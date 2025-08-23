@@ -5,7 +5,7 @@ import { db } from "~/server/db";
 export async function POST(req: NextRequest) {
   const session = await auth();
 
-  if (!session || !session.user || !session.user.email) {
+  if (!session?.user?.email) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 

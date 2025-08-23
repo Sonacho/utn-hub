@@ -18,7 +18,7 @@ export const Search = () => {
   useEffect(() => {
     let cancelled = false;
 
-    const run = async () => {
+    (async () => {
       if (!debouncedQuery) {
         setFolders([]);
         setOpen(false);
@@ -29,11 +29,9 @@ export const Search = () => {
       if (!cancelled) {
         setFolders(results);
         setLoading(false);
-        setOpen(true); // show popover when we have a query
+        setOpen(true);
       }
-    };
-
-    run();
+    })();
     return () => {
       cancelled = true;
     };
@@ -44,6 +42,7 @@ export const Search = () => {
       <PopoverTrigger asChild>
         <div className="w-80">
           <Input
+            autoComplete="false"
             className="w-full shadow-sm"
             placeholder="Buscar..."
             value={query}

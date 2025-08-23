@@ -11,6 +11,7 @@ import {
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
 import CommentBox from "./commentBox";
+import { RepliesResponse } from "~/types/replies";
 
 interface CommentItemProps {
   id: string;
@@ -45,7 +46,7 @@ const CommentItem = ({
   const [isLiked, setIsLiked] = useState(session ? likedByMe : false);
   const [isToggled, setIsToggled] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [replies, setReplies] = useState<any[]>([]);
+  const [replies, setReplies] = useState<RepliesResponse>([]);
   const [showReplies, setShowReplies] = useState(false);
   const [loadingReplies, setLoadingReplies] = useState(false);
   const [commentContent, setCommentContent] = useState(content);
@@ -213,7 +214,7 @@ const CommentItem = ({
       )}
       {showReplies && replies.length > 0 && (
         <div className="ml-10 border-l pl-4">
-          {replies.map((reply: any) => (
+          {replies.map((reply) => (
             <CommentItem
               key={reply.id}
               id={reply.id}

@@ -6,15 +6,12 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "~/components/ui/breadcrumb";
-import getFolderPath from "~/utils/getFolderPath";
 
 export default async function BreadcrumbComponent({
   path,
 }: {
   path: string[];
 }) {
-  /*   const links = await getFolderPath(id);
-   */
   const links = path;
   const subLinks = links.map((e) => {
     return { name: decodeURI(e.split("+")[0]!), path: e.split("+")[1] };
