@@ -15,9 +15,18 @@ export async function generateMetadata({
   const folder = await db.folder.findUnique({
     where: { stringPath: stringPath },
   });
+  if (!folder) {
+    const fileS3Key = decodeURIComponent(path.join("/"));
+    const file = await db.file.findUnique({
+      where: { s3Key: fileS3Key },
+    });
+    return {
+      title: file?.name ?? "Unknown",
+    };
+  }
 
   return {
-    title: folder?.name ?? "File",
+    title: folder?.name ?? "Unknown",
   };
 }
 
