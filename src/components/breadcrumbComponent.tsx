@@ -14,7 +14,10 @@ export default async function BreadcrumbComponent({
 }) {
   const links = path;
   const subLinks = links.map((e) => {
-    return { name: decodeURI(e.split("+")[0]!), path: e.split("+")[1] };
+    return {
+      name: decodeURIComponent(e.split("+")[0]!),
+      path: e.split("+")[1],
+    };
   });
   function cutPath(segment: string): string {
     const fullPath = links.join("/");
@@ -33,7 +36,7 @@ export default async function BreadcrumbComponent({
               <React.Fragment key={i}>
                 <BreadcrumbItem>
                   <BreadcrumbLink
-                    href={`/${i ? cutPath(encodeURI(e.name)) : ""}`}
+                    href={`/${i ? cutPath(encodeURIComponent(e.name)) : ""}`}
                   >
                     {e.name === "UTN" ? "Home" : e.name}
                   </BreadcrumbLink>

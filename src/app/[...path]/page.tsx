@@ -10,7 +10,7 @@ export async function generateMetadata({
 }) {
   const { path } = await params;
 
-  const stringPath = decodeURI(path.join("/")) + "/";
+  const stringPath = decodeURIComponent(path.join("/")) + "/";
 
   const folder = await db.folder.findUnique({
     where: { stringPath: stringPath },
@@ -28,7 +28,7 @@ export default async function FolderPage({
 }) {
   const { path } = await params;
 
-  const stringPath = decodeURI(path.join("/")) + "/";
+  const stringPath = decodeURIComponent(path.join("/")) + "/";
 
   async function getFolder(path: string) {
     const folder = await db.folder.findUnique({
@@ -74,7 +74,7 @@ export default async function FolderPage({
       </div>
     );
   }
-  const fileS3Key = decodeURI(path.join("/"));
+  const fileS3Key = decodeURIComponent(path.join("/"));
   const file = await db.file.findUnique({
     where: {
       s3Key: fileS3Key,
