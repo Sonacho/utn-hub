@@ -101,6 +101,10 @@ export default async function FolderPage({
     return (
       <div className="container flex h-full items-center justify-center">
         <div className="h-full w-full max-w-screen-lg p-4">
+          <div className="text-center text-sm italic text-foreground opacity-75">
+            Es común que a veces el documento no cargue a la primera, intenta
+            recargar si eso pasa.
+          </div>
           <FilePage doc={doc} />
         </div>
       </div>
