@@ -9,6 +9,7 @@ const XlsxViewer = ({ uri, name }: XlsxViewerProps) => {
   return (
     <div className="w-full">
       <iframe
+        key={uri}
         src={`https://view.officeapps.live.com/op/view.aspx?src=${uri}`}
         className="h-screen w-full"
         title={name}
